@@ -25,25 +25,25 @@ local PlayerControl = {
 				direction = Vector2.new(0, 1);
 			};
 			["A"] = {
-				direction = Vector2.new(-1, 0);
-			};
-			["S"] = {
 				direction = Vector2.new(1, 0);
 			};
-			["D"] = {
+			["S"] = {
 				direction = Vector2.new(0, -1);
+			};
+			["D"] = {
+				direction = Vector2.new(-1, 0);
 			};
 			["Up"] = {
 				direction = Vector2.new(0, 1);
 			};
 			["Left"] = {
-				direction = Vector2.new(-1, 0);
-			};
-			["Down"] = {
 				direction = Vector2.new(1, 0);
 			};
-			["Right"] = {
+			["Down"] = {
 				direction = Vector2.new(0, -1);
+			};
+			["Right"] = {
+				direction = Vector2.new(-1, 0);
 			};
 		}
 	};
@@ -67,9 +67,10 @@ function PlayerControl.initiateControls()
 		for keycode, info in pairs(inputs) do
 			UserInput.connectInput(inputType, keycode, function()
 				local currentVector = PlayerControl.currentMoveVector
-				PlayerControl.currentMoveVector = Vector3.new(currentVector.X + info.direction.X, 0, currentVector.Z + info.direction.Y)
+				PlayerControl.currentMoveVector = Vector3.new(currentVector.X - info.direction.X, 0, currentVector.Z - info.direction.Y)
 			end, function()
-				RunService:UnbindFromRenderStep("PlayerMovement")
+				local currentVector = PlayerControl.currentMoveVector
+				PlayerControl.currentMoveVector = Vector3.new(currentVector.X + info.direction.X, 0, currentVector.Z + info.direction.Y)
 			end)
 		end
 	end
