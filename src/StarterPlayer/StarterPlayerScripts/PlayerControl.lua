@@ -50,8 +50,6 @@ local PlayerControl = {
 	currentMoveVector = Vector3.new(0, 0, 0);
 }
 
-controls:Disable()
-
 function PlayerControl.moveCharacter()
 	hum:Move(PlayerControl.currentMoveVector, true)
 end
@@ -87,12 +85,14 @@ function PlayerControl.initiateControls()
 end
 
 function PlayerControl.newCharacter(newChar)
+	controls:Disable()
 	char = newChar
 	hum = newChar:WaitForChild("Humanoid")
 end
 
 player.CharacterAdded:Connect(PlayerControl.newCharacter)
 
+controls:Disable()
 PlayerControl.initiateControls()
 
 return PlayerControl
